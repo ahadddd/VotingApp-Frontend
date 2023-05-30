@@ -1,3 +1,58 @@
+<div class="header">
+  <div class="title">
+    <a routerLink="">Voting App</a>
+  </div>
+
+
+  <div class="nav-items">
+    <a routerLink="candidates">Candidates</a>
+    <a routerLink="voters">Voters Portal</a>
+    <a routerLink="voters">Cities</a>
+    <a href="">Results</a>
+  </div>
+</div>
+
 <div class="container">
-  <h1>Voter Compo</h1>
+  <div class="buttons">
+    <button style="height: 50px" (click)="getVoters()">
+      Get All Voters
+    </button>
+    <button style="height: 50px" (click)="addVoter()">
+      Create Voter
+    </button>
+  </div>
+  
+
+  <table>
+    <thead>
+      <tr>
+        <td>Id</td>
+        <td>Name</td>
+        <td>City</td>
+        <td>Vote</td>
+        <td>Actions</td>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let item of voters; let i = index">
+        <td>{{item?.id}}</td>
+        <td>{{item?.name}}</td>
+        <td>{{item?.city?.name}}</td>
+        <td>{{item?.voteCasted}}</td>
+        <td><button  >Edit</button> <button >Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<div *ngIf="createModal" class="createVoter">
+  <form [formGroup]="createForm" (ngSubmit)="addVoter()">
+    <label for="name">Name</label>
+    <input type="text" placeholder="Enter Name: " id="name" formControlName="name" />
+    <label for="city">City</label>
+    <input type="text" placeholder="Enter City: " id="city" formControlName="city"/>
+    <button type="submit" id="addBtn">Add Candidate</button>
+  </form>
 </div>
