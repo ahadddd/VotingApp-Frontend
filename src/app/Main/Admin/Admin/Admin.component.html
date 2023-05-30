@@ -1,14 +1,13 @@
-<router-outlet></router-outlet>
 <div class="header">
   <div class="title">
-    <a routerLink="">Voting App</a>
+    <a (click)="navigateToHome()">Voting App</a>
   </div>
 
-
   <div class="nav-items">
+    <router-outlet></router-outlet>
     <a routerLink="candidates">Candidates</a>
     <a routerLink="voters">Voters Portal</a>
-    <a routerLink="voters">Cities</a>
+    <a href="">Cities</a>
     <a href="">Results</a>
   </div>
 </div>

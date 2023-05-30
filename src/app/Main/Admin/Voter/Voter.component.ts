@@ -12,7 +12,9 @@ export class VoterComponent implements OnInit {
   baseUrl = `https://localhost:7056/api/`;
   voters: any = [];
   createModal: boolean = false;
+  editModal: boolean = false;
   createForm!: FormGroup;
+  globalHolder: any;
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
@@ -33,13 +35,70 @@ export class VoterComponent implements OnInit {
   addVoter() {
     if (this.createModal) {
       if (this.createForm.invalid) {
-        alert('invalid data entered.')
+        alert('invalid data entered.');
+        this.createModal = !this.createModal;
       }
-      this.createModal = !this.createModal;
+      else {
+        let ctrl = this.createForm.controls;
+        let v1 = {
+          "name": ctrl['name'].getRawValue(),
+          "city": {
+            "name": ctrl['city'].getRawValue()
+          }
+        }
+        let req = this.http.post(this.baseUrl + 'Voter', v1);
+        req.subscribe({
+          next: (res) => console.log(res),
+          error: (err) => console.log(err)
+        });
+        this.createForm.reset();
+        this.createModal = !this.createModal;
+      }
     }
     else {
       this.createModal = !this.createModal;
     }
   }
 
+  editVoter(i?: any) {
+
+    if (this.editModal) {
+      if (this.createForm.invalid) {
+        alert('Invalid data entered.');
+      }
+      else {
+        let ctrl = this.createForm.controls;
+        let v1 = {
+          "name": ctrl['name'].getRawValue(),
+          "city": {
+            "name": ctrl['city'].getRawValue()
+          }
+        }
+        let req = this.http.put(this.baseUrl + `Voter/${this.voters[this.globalHolder].name}`, v1);
+        req.subscribe({
+          next: (res) => console.log(res),
+          error: (err) => console.log(err)
+        });
+        this.globalHolder = null;
+      }
+      this.editModal = !this.editModal;
+    }
+    else {
+      this.createForm = new FormGroup({
+        name: new FormControl(`${this.voters[i].name}`, Validators.required),
+        city: new FormControl(`${this.voters[i].city?.name}`, Validators.required),
+      });
+      this.editModal = !this.editModal;
+      this.globalHolder = i;
+    }
+  }
+
+  deleteVoter(i: any) {
+    let req = this.http.delete(this.baseUrl+`Voter/${this.voters[i].name}`);
+    req.subscribe({
+      next: (res) => console.log(res),
+      error: (err) => console.log(err)
+    });
+    this.voters.splice(i, 1);
+  }
 }

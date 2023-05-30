@@ -40,7 +40,7 @@
         <td>{{item?.name}}</td>
         <td>{{item?.city?.name}}</td>
         <td>{{item?.voteCasted}}</td>
-        <td><button  >Edit</button> <button >Delete</button></td>
+        <td><button (click)="editVoter(i)">Edit</button> <button (click)="deleteVoter(i)">Delete</button></td>
       </tr>
     </tbody>
   </table>
@@ -54,5 +54,15 @@
     <label for="city">City</label>
     <input type="text" placeholder="Enter City: " id="city" formControlName="city"/>
     <button type="submit" id="addBtn">Add Candidate</button>
+  </form>
+</div>
+
+<div *ngIf="editModal" class="createVoter">
+  <form [formGroup]="createForm" (ngSubmit)="editVoter()">
+    <label for="name">Name</label>
+    <input type="text" placeholder="Enter Name: " id="name" formControlName="name" />
+    <label for="city">City</label>
+    <input type="text" placeholder="Enter City: " id="city" formControlName="city"/>
+    <button type="submit" id="addBtn">Edit Voter</button>
   </form>
 </div>

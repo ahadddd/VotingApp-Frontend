@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { AdminComponent } from '../Admin/Admin/Admin.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { CandidateComponent } from './Candidate/Candidate.component';
 import { VoterComponent } from './Voter/Voter.component';

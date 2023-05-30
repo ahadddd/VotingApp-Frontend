@@ -1,3 +1,17 @@
+<div class="header">
+  <div class="title">
+    <a routerLink="">Voting App</a>
+  </div>
+
+
+  <div class="nav-items">
+    <a routerLink="candidates">Candidates</a>
+    <a routerLink="voters">Voters Portal</a>
+    <a routerLink="voters">Cities</a>
+    <a href="">Results</a>
+  </div>
+</div>
+
 <div class="container">
   <div class="buttons">
     <button style="height: 50px" (click)="getCandidates()">
@@ -40,7 +54,7 @@
     <input type="text" placeholder="Enter City: " id="city" formControlName="city"/>
     <label for="position">Position</label>
     <input type="text" placeholder="Enter Position: " id="position" formControlName="position"/>
-    <button id="addBtn">Add Candidate</button>
+    <button type="submit" id="addBtn">Add Candidate</button>
   </form>
 </div>
 
@@ -53,6 +67,6 @@
     <input type="text" placeholder="Enter City: " id="city" formControlName="city"/>
     <label for="position">Position</label>
     <input type="text" placeholder="Enter Position: " id="position" formControlName="position"/>
-    <button id="addBtn">Edit Candidate</button>
+    <button type="submit" id="addBtn">Edit Candidate</button>
   </form>
 </div>
