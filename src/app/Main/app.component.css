@@ -22,7 +22,7 @@ a{
 }
 
 div.nav-items{
-    width: 25%;
+    width: 15%;
     display: flex;
     justify-content: space-between;
     margin-right: 25px;
