@@ -1,0 +1,67 @@
+<div class="header">
+  <div class="title">
+    <a href="">Voting App</a>
+  </div>
+
+  <div class="nav-items">
+    <a (click)="navigateToVote()">Vote Now</a>
+    <a (click)="navigateToCandidates()">Candidates</a>
+    <a (click)="navigateToResults()">Results</a>
+  </div>
+</div>
+
+<div class="container">
+  <div class="controls">
+    <form (ngSubmit)="sortByCity()" [formGroup]="cityForm">
+      <label for="">Search by City</label>
+      <select formControlName="name" ariaPlaceholder="Select-City">
+        <option *ngFor="let item of cities" [value]="item.name">
+          {{item.name}}
+        </option>
+      </select>
+      <button id="filterBtn" type="submit">View By City</button>
+    </form>
+    
+    <div id="searchByPosition">
+      <label for="position">Search by position:</label>
+      <input type="text" placeholder="Enter Position..." id="position" [(ngModel)]="positionFilter">
+      <button id="filterBtn" (click)="sortByPosition()">View By Position</button>
+    </div>
+    
+  </div>
+  <div class="mainContent">
+
+    <table *ngIf="city">
+      <thead>
+        <tr>
+          <td class="head">Candidate</td>
+          <td class="head">City</td>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let item of candidatesByCity">
+          <td class="data">{{item.name}}</td>
+          <td class="data" *ngIf="item.votes == null">No votes yet</td>
+          <td class="data" *ngIf="item.votes != null">{{item.votes.length}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table *ngIf="position">
+      <thead>
+        <tr>
+          <td></td>
+          <td></td>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let item of candidatesByCity">
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
