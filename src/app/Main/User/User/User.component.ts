@@ -54,11 +54,15 @@ export class UserComponent implements OnInit {
   navigateToResults() {
     this.router.navigateByUrl('/user/results');
   }
+  navigateToVote() {
+    this.router.navigateByUrl('/user');
+  }
 
   castVote() {
     let vote: any;
-    let candidate: any;
-    let voter: any;
+    let voteUrl = `https://localhost:7056/vote/Vote`;
+    let voterUrl = `https://localhost:7056/api/Voter/voter/castVote` //append voterName/castVote
+    let candidateUrl = `https://localhost:7056/api/Candidate/candidate/castVote` //append candidateName/castVote
     if (this.voteForm.invalid) {
       alert('Invalid data provided.');
     }
@@ -66,27 +70,55 @@ export class UserComponent implements OnInit {
       let ctrl = this.voteForm.controls;
       vote = {
         casted: true,
-        votedBy: ctrl['voter'].getRawValue(),
-        votedFor: ctrl['candidate'].getRawValue()
+        voter: ctrl['voter'].getRawValue(),
+        candidate: ctrl['candidate'].getRawValue()
       };
       console.log(vote);
+      this.voteForm.reset();
     }
-    //extract candidate from Vote
-    this.candidates.forEach((item: any) => {
-      if (item.id == vote.candidate) {
-        candidate = item;
-      }
-    });
 
-    //extract voter from Vote
+    let voterName;
     this.voters.forEach((item: any) => {
       if (item.id == vote.voter) {
-        voter = item;
+        voterName = item.name;
       }
     });
+    console.log(voterName);
 
-    console.log(candidate, voter);
+
+    let candidateName;
+    this.candidates.forEach((item: any) => {
+      if (item.id == vote.candidate) {
+        candidateName = item.name;
+      }
+    });
+    console.log(candidateName);
+
+
+    let req1 = this.http.post(voteUrl, vote);
+    req1.subscribe({
+      next: (res) => console.log(res),
+      error: (err) => console.log(err)
+    });
+
+
+    setTimeout(() => {
+      this.http.put(candidateUrl, vote).subscribe({
+        next: (res) => console.log(res),
+        error: (err) => console.log(err)
+      });
+    }, 2000);
+
+    setTimeout(() => {
+      this.http.put(voterUrl, vote).subscribe({
+        next: (res) => console.log(res),
+        error: (err) => console.log(err)
+      });
+    }, 1000);
+
+
   }
+
 
 
 }
