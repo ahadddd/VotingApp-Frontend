@@ -6,7 +6,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CandidateComponent } from './Candidate/Candidate.component';
 import { VoterComponent } from './Voter/Voter.component';
-import { CityComponent } from './City/City.component';
 
 @NgModule({
   imports: [
@@ -25,13 +24,9 @@ import { CityComponent } from './City/City.component';
       {
         path: 'voters',
         component: VoterComponent
-      },
-      {
-        path: 'cities',
-        component: CityComponent
       }
     ])
   ],
-  declarations: [AdminComponent, CandidateComponent, VoterComponent, CityComponent]
+  declarations: [AdminComponent, CandidateComponent, VoterComponent, ]
 })
 export class AdminModule { }

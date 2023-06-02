@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {RouterModule } from "@angular/router";
+import { RouterModule } from "@angular/router";
 import { AppComponent } from '../app/Main/app.component';
 import { HttpClientModule } from "@angular/common/http";
 import { CandidateComponent } from './Main/Admin/Candidate/Candidate.component';
@@ -14,18 +14,24 @@ import { VoterComponent } from './Main/Admin/Voter/Voter.component';
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
       {
         path: '',
-        component: AppComponent
+        component: AppComponent,
       },
       {
         path: 'admin',
-        loadChildren: () => import( `../app/Main/Admin/Admin.module`).then(module => module.AdminModule)
+        loadChildren: () => import(`../app/Main/Admin/Admin.module`).then(module => module.AdminModule)
+      },
+      {
+        path: 'user',
+        loadChildren: () => import(`../app/Main/User/User.module`).then(mod => mod.UserModule)
       }
+      
     ])
   ],
   providers: [],

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-Voter',
@@ -15,13 +16,39 @@ export class VoterComponent implements OnInit {
   editModal: boolean = false;
   createForm!: FormGroup;
   globalHolder: any;
-  constructor(private http: HttpClient) { }
+  cities: any = ["Karachi",
+    "Lahore",
+    "Islamabad",
+    "Rawalpindi",
+    "Faisalabad",
+    "Multan",
+    "Hyderabad",
+    "Peshawar",
+    "Quetta",
+    "Gujranwala",
+    "Sialkot",
+    "Bahawalpur",
+    "Sargodha",
+    "Abbottabad",
+    "Gujrat",
+    "Sukkur",
+    "Jhelum",
+    "Mardan",
+    "Mirpur",
+    "Rahim Yar Khan"];
+  constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
     this.createForm = new FormGroup({
       name: new FormControl('', Validators.required),
       city: new FormControl('', Validators.required),
     })
+  }
+  navigateToCandidates() {
+    this.router.navigateByUrl('/admin/candidates');
+  }
+  navigateToVoters() {
+    this.router.navigateByUrl('/admin/voters');
   }
 
   getVoters() {
@@ -42,9 +69,7 @@ export class VoterComponent implements OnInit {
         let ctrl = this.createForm.controls;
         let v1 = {
           "name": ctrl['name'].getRawValue(),
-          "city": {
-            "name": ctrl['city'].getRawValue()
-          }
+          "city": ctrl['city'].getRawValue()
         }
         let req = this.http.post(this.baseUrl + 'Voter', v1);
         req.subscribe({
@@ -94,7 +119,7 @@ export class VoterComponent implements OnInit {
   }
 
   deleteVoter(i: any) {
-    let req = this.http.delete(this.baseUrl+`Voter/${this.voters[i].name}`);
+    let req = this.http.delete(this.baseUrl + `Voter/${this.voters[i].name}`);
     req.subscribe({
       next: (res) => console.log(res),
       error: (err) => console.log(err)

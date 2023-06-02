@@ -82,7 +82,7 @@ export class ResultsComponent implements OnInit {
           }
         });
         console.log(this.candidatesByCity);
-        
+
       }
     }
     else {
@@ -107,6 +107,29 @@ export class ResultsComponent implements OnInit {
 
 
   sortByPosition() {
+    if (this.city == true) {
+      this.candidatesByPosition = [];
+      this.city = false;
+      this.position = true;
 
+      console.log(this.positionFilter);
+      this.candidates.forEach((item: any) => {
+        if (item.position == this.positionFilter) {
+          this.candidatesByPosition.push(item);
+        }
+      });
+      console.log(this.candidatesByPosition);
+    }
+    else {
+      this.candidatesByPosition = [];
+      this.position = true;
+      console.log(this.positionFilter);
+      this.candidates.forEach((item: any) => {
+        if (item.position == this.positionFilter) {
+          this.candidatesByPosition.push(item);
+        }
+      });
+      console.log(this.candidatesByPosition);
+    }
   }
 }

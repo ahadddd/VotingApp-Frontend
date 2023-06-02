@@ -94,14 +94,15 @@ export class UserComponent implements OnInit {
     });
     console.log(candidateName);
 
+    //create vote
+    setTimeout(() => {
+      this.http.post(voteUrl, vote).subscribe({
+        next: (res) => console.log(res),
+        error: (err) => console.log(err)
+      });
+    }, 1000);
 
-    let req1 = this.http.post(voteUrl, vote);
-    req1.subscribe({
-      next: (res) => console.log(res),
-      error: (err) => console.log(err)
-    });
-
-
+    //link to candidate
     setTimeout(() => {
       this.http.put(candidateUrl, vote).subscribe({
         next: (res) => console.log(res),
@@ -109,13 +110,15 @@ export class UserComponent implements OnInit {
       });
     }, 2000);
 
+    //link to voter
     setTimeout(() => {
       this.http.put(voterUrl, vote).subscribe({
         next: (res) => console.log(res),
         error: (err) => console.log(err)
       });
-    }, 1000);
+    }, 2000);
 
+    this.ngOnInit();
 
   }
 

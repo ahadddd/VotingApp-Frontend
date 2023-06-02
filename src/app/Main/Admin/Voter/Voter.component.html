@@ -5,9 +5,8 @@
 
 
   <div class="nav-items">
-    <a routerLink="candidates">Candidates</a>
-    <a routerLink="voters">Voters Portal</a>
-    <a routerLink="voters">Cities</a>
+    <a (click)="navigateToCandidates()">Candidates</a>
+    <a (click)="navigateToVoters()">Voters Portal</a>
     <a href="">Results</a>
   </div>
 </div>
@@ -52,7 +51,11 @@
     <label for="name">Name</label>
     <input type="text" placeholder="Enter Name: " id="name" formControlName="name" />
     <label for="city">City</label>
-    <input type="text" placeholder="Enter City: " id="city" formControlName="city"/>
+    <select formControlName="city" id="city">
+      <option *ngFor="let item of cities" [value]="item">
+        {{item}}
+      </option>
+    </select>
     <button type="submit" id="addBtn">Add Candidate</button>
   </form>
 </div>
@@ -62,7 +65,11 @@
     <label for="name">Name</label>
     <input type="text" placeholder="Enter Name: " id="name" formControlName="name" />
     <label for="city">City</label>
-    <input type="text" placeholder="Enter City: " id="city" formControlName="city"/>
+    <select formControlName="city" id="city">
+      <option *ngFor="let item of cities" [value]="item">
+        {{item}}
+      </option>
+    </select>
     <button type="submit" id="addBtn">Edit Voter</button>
   </form>
 </div>

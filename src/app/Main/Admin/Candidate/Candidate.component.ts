@@ -1,6 +1,7 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Candidate } from 'src/Models/Candidate';
 
 @Component({
@@ -15,15 +16,40 @@ export class CandidateComponent implements OnInit {
   createForm !: FormGroup;
   candidates: any[] = [];
   globalHolder: any;
-  constructor(private http: HttpClient) { }
+  cities: any = ["Karachi",
+    "Lahore",
+    "Islamabad",
+    "Rawalpindi",
+    "Faisalabad",
+    "Multan",
+    "Hyderabad",
+    "Peshawar",
+    "Quetta",
+    "Gujranwala",
+    "Sialkot",
+    "Bahawalpur",
+    "Sargodha",
+    "Abbottabad",
+    "Gujrat",
+    "Sukkur",
+    "Jhelum",
+    "Mardan",
+    "Mirpur",
+    "Rahim Yar Khan"];
+  constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
-
     this.createForm = new FormGroup({
       name: new FormControl('', Validators.required),
       city: new FormControl('', Validators.required),
       position: new FormControl('', Validators.required)
     })
+  }
+  navigateToCandidates() {
+    this.router.navigateByUrl('/admin/candidates');
+  }
+  navigateToVoters() {
+    this.router.navigateByUrl('/admin/voters');
   }
 
   getCandidates() {
@@ -51,29 +77,18 @@ export class CandidateComponent implements OnInit {
         let c1 = {
           "name": ctrl['name'].getRawValue(),
           "position": ctrl['position'].getRawValue(),
-          "city": {
-            "name":
-              ctrl['city'].getRawValue(),
-          }
+          "city": ctrl['city'].getRawValue(),
         };
-        //reset form 
-        this.createForm.reset();
+        console.log(c1);
+
         //send post req with object
         let req = this.http.post(this.baseUrl + 'Candidate', c1);
         req.subscribe({
           next: (res) => console.log(res),
           error: (err) => console.log(err)
         });
-        //send get req to update local array
-        let newReq = this.http.get<any>(this.baseUrl + 'Candidate');
-        req.subscribe({
-          next: (data: any) => {
-            this.candidates = data;
-            // console.log(this.candidates);
-          },
-          error: (err) => console.log(err)
-        });
 
+        this.createForm.reset();
       }
 
       this.createModal = !this.createModal;
@@ -145,7 +160,4 @@ export class CandidateComponent implements OnInit {
       this.globalHolder = i;
     }
   }
-
-
-
 }

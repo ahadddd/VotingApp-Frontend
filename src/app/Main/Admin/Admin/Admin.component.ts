@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { VoterComponent } from '../Voter/Voter.component';
 
 @Component({
   selector: 'app-Admin',
@@ -10,20 +9,18 @@ import { VoterComponent } from '../Voter/Voter.component';
 export class AdminComponent implements OnInit {
 
   constructor(private router: Router) { }
-
+  
   ngOnInit() {
+    console.log("Admin component loaded.");
   }
-
-  navigateToHome(){
-    this.router.navigateByUrl('');
-  }
-
-  navigateToVoters(){
-    this.router.navigate(['voters']);
-  }
-
   navigateToCandidates(){
-    this.router.navigateByUrl('/candidates');
+    this.router.navigateByUrl('/admin/candidates');
+  }
+  navigateToVoters(){
+    this.router.navigateByUrl('/admin/voters');
+  }
+  navigateToCities(){
+    this.router.navigateByUrl('/admin/cities');
   }
 
 }
