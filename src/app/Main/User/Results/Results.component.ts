@@ -14,7 +14,26 @@ export class ResultsComponent implements OnInit {
   candidates: any = [];
   candidatesByCity: any = [];
   candidatesByPosition: any = [];
-  cities: any = [];
+  cities: any = ["Karachi",
+    "Lahore",
+    "Islamabad",
+    "Rawalpindi",
+    "Faisalabad",
+    "Multan",
+    "Hyderabad",
+    "Peshawar",
+    "Quetta",
+    "Gujranwala",
+    "Sialkot",
+    "Bahawalpur",
+    "Sargodha",
+    "Abbottabad",
+    "Gujrat",
+    "Sukkur",
+    "Jhelum",
+    "Mardan",
+    "Mirpur",
+    "Rahim Yar Khan"];
   cityUrl: any = `https://localhost:7056/api/City`;
   baseUrl: any = `https://localhost:7056/api/Candidate`;
   cityForm!: FormGroup;
@@ -30,11 +49,6 @@ export class ResultsComponent implements OnInit {
 
     this.http.get<any>(this.baseUrl).subscribe({
       next: (data) => this.candidates = data,
-      error: (err) => console.log(err)
-    });
-
-    this.http.get<any>(this.cityUrl).subscribe({
-      next: (data) => this.cities = data,
       error: (err) => console.log(err)
     });
 
@@ -61,14 +75,17 @@ export class ResultsComponent implements OnInit {
       else {
         let ctrl = this.cityForm.controls;
         let city = ctrl['name'].getRawValue();
+        console.log(city);
         this.candidates.forEach((item: any) => {
-          if (item.city.name == city) {
+          if (item.city == city) {
             this.candidatesByCity.push(item);
           }
         });
+        console.log(this.candidatesByCity);
+        
       }
     }
-    else{
+    else {
       this.city = true;
       if (this.cityForm.invalid) {
         alert('Invalid city selected.');
@@ -76,11 +93,13 @@ export class ResultsComponent implements OnInit {
       else {
         let ctrl = this.cityForm.controls;
         let city = ctrl['name'].getRawValue();
+        console.log(city);
         this.candidates.forEach((item: any) => {
-          if (item.city.name == city) {
+          if (item.city == city) {
             this.candidatesByCity.push(item);
           }
         });
+        console.log(this.candidatesByCity);
       }
     }
   }

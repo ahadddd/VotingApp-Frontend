@@ -15,8 +15,8 @@
     <form (ngSubmit)="sortByCity()" [formGroup]="cityForm">
       <label for="">Search by City</label>
       <select formControlName="name" ariaPlaceholder="Select-City">
-        <option *ngFor="let item of cities" [value]="item.name">
-          {{item.name}}
+        <option *ngFor="let item of cities" [value]="item">
+          {{item}}
         </option>
       </select>
       <button id="filterBtn" type="submit">View By City</button>

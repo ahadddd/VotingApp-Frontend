@@ -51,10 +51,16 @@ div#searchByPosition {
     flex-direction: column;
 }
 
+div.mainContent{
+    border: 1px solid;
+    width: 50%;
+    height: 750px;
+}
+
 table {
     border: 1px solid;
     border-collapse: collapse;
-
+    width: 100%;
 }
 
 .head {
