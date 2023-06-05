@@ -15,23 +15,29 @@
   <h1>Voter portal: select voter & Cast vote screen</h1>
 
   <div class="votingSection">
-    <form (ngSubmit)="castVote()" [formGroup]="voteForm">
+    
+    <label for="candidate">Select Voter</label>
+    <select [(ngModel)]="selectedCity" id="candidate">
+      <option *ngFor="let item of voters; let c = index" [value]="item.city">
+        {{ item.name }}
+      </option>
+    </select>
+
+    <button (click)="selectVoter()" id="voteBtn">Select Candidate</button>
+
+  
+    <form *ngIf="selectedVoter !== undefined" (ngSubmit)="castVote()" [formGroup]="voteForm">
 
       <label for="candidate">Select Candidate</label>
       <select formControlName="candidate" id="candidate">
-        <option *ngFor="let item of candidates; let c = index" [value]="item.id">
-          {{ item.name }}
-        </option>
-      </select>
-
-      <label for="voter">Select Voter</label>
-      <select formControlName="voter" id="voter">
-        <option *ngFor="let item of voters; let v = index" [value]="item.id">
+        <option *ngFor="let item of filterCandidates; let c = index" [value]="item.id">
           {{ item.name }}
         </option>
       </select>
 
       <button type="submit" id="voteBtn">Vote</button>
     </form>
+
+
   </div>
 </div>

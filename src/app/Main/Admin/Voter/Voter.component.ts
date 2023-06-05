@@ -25,17 +25,7 @@ export class VoterComponent implements OnInit {
     "Hyderabad",
     "Peshawar",
     "Quetta",
-    "Gujranwala",
-    "Sialkot",
-    "Bahawalpur",
-    "Sargodha",
-    "Abbottabad",
-    "Gujrat",
-    "Sukkur",
-    "Jhelum",
-    "Mardan",
-    "Mirpur",
-    "Rahim Yar Khan"];
+  ];
   constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
@@ -70,7 +60,8 @@ export class VoterComponent implements OnInit {
         let v1 = {
           "name": ctrl['name'].getRawValue(),
           "city": ctrl['city'].getRawValue()
-        }
+        };
+        console.log(v1);
         let req = this.http.post(this.baseUrl + 'Voter', v1);
         req.subscribe({
           next: (res) => console.log(res),
@@ -95,9 +86,7 @@ export class VoterComponent implements OnInit {
         let ctrl = this.createForm.controls;
         let v1 = {
           "name": ctrl['name'].getRawValue(),
-          "city": {
-            "name": ctrl['city'].getRawValue()
-          }
+          "city": ctrl['city'].getRawValue()
         }
         let req = this.http.put(this.baseUrl + `Voter/${this.voters[this.globalHolder].name}`, v1);
         req.subscribe({

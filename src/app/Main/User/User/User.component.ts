@@ -2,11 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-User',
   templateUrl: './User.component.html',
-  styleUrls: ['../../../../styles.css', './User.component.css']
+  styleUrls: ['./User.component.css', '../../../../styles.css']
 })
 export class UserComponent implements OnInit {
 
@@ -16,6 +17,8 @@ export class UserComponent implements OnInit {
   selectedVoter: any;
   candidates: any = [];
   voters: any = [];
+  selectedCity: any;
+  filterCandidates: any = [];
   voteForm!: FormGroup;
 
   constructor(private router: Router, private http: HttpClient) { }
@@ -30,7 +33,7 @@ export class UserComponent implements OnInit {
     req2.subscribe({
       next: (data) => {
         data.forEach((item: any) => {
-          if (item.voteCasted == null || false) {
+          if (item.voteCasted == null) {
             this.voters.push(item);
           }
         })
@@ -39,12 +42,10 @@ export class UserComponent implements OnInit {
     });
     console.log(this.voters);
 
-
     this.voteForm = new FormGroup({
       candidate: new FormControl('', Validators.required),
       voter: new FormControl('', Validators.required)
     });
-
 
   }
 
@@ -58,67 +59,60 @@ export class UserComponent implements OnInit {
     this.router.navigateByUrl('/user');
   }
 
-  castVote() {
+  selectVoter() {
     let vote: any;
     let voteUrl = `https://localhost:7056/vote/Vote`;
     let voterUrl = `https://localhost:7056/api/Voter/voter/castVote` //append voterName/castVote
     let candidateUrl = `https://localhost:7056/api/Candidate/candidate/castVote` //append candidateName/castVote
-    if (this.voteForm.invalid) {
+    if (this.selectedCity == undefined) {
       alert('Invalid data provided.');
     }
     else {
-      let ctrl = this.voteForm.controls;
-      vote = {
-        casted: true,
-        voter: ctrl['voter'].getRawValue(),
-        candidate: ctrl['candidate'].getRawValue()
-      };
-      console.log(vote);
-      this.voteForm.reset();
+      console.log(this.selectedCity);
+      this.filterCandidates = this.candidates.filter((item: any) => item.city == this.selectedCity);
+      console.log(this.filterCandidates);
+      
+      // let ctrl = this.voteForm.controls;
+      // vote = {
+      //   casted: true,
+      //   voter: ctrl['voter'].getRawValue(),
+      //   candidate: ctrl['candidate'].getRawValue()
+      // };
+      
+      // this.voteForm.reset();
     }
 
-    let voterName;
-    this.voters.forEach((item: any) => {
-      if (item.id == vote.voter) {
-        voterName = item.name;
-      }
-    });
-    console.log(voterName);
+    //check voter
+    
 
-
-    let candidateName;
-    this.candidates.forEach((item: any) => {
-      if (item.id == vote.candidate) {
-        candidateName = item.name;
-      }
-    });
-    console.log(candidateName);
+    //check candidate
+    
 
     //create vote
-    setTimeout(() => {
-      this.http.post(voteUrl, vote).subscribe({
-        next: (res) => console.log(res),
-        error: (err) => console.log(err)
-      });
-    }, 1000);
+    // this.http.post(voteUrl, vote).subscribe({
+    //   next: (res) => console.log(res),
+    //   error: (err) => console.log(err)
+    // });
 
     //link to candidate
-    setTimeout(() => {
-      this.http.put(candidateUrl, vote).subscribe({
-        next: (res) => console.log(res),
-        error: (err) => console.log(err)
-      });
-    }, 2000);
+    // setTimeout(() => {
+    //   this.http.put(candidateUrl, vote).subscribe({
+    //     next: (res) => console.log(res),
+    //     error: (err) => console.log(err)
+    //   });
+    // }, 2000);
 
     //link to voter
-    setTimeout(() => {
-      this.http.put(voterUrl, vote).subscribe({
-        next: (res) => console.log(res),
-        error: (err) => console.log(err)
-      });
-    }, 2000);
+    // setTimeout(() => {
+    //   this.http.put(voterUrl, vote).subscribe({
+    //     next: (res) => console.log(res),
+    //     error: (err) => console.log(err)
+    //   });
+    // }, 2000);
+  }
 
-    this.ngOnInit();
+
+  castVote(){
 
   }
 

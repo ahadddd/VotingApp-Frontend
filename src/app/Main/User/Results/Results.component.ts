@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-Results',
   templateUrl: './Results.component.html',
-  styleUrls: ['../../../../styles.css', './Results.component.css']
+  styleUrls: ['./Results.component.css', '../../../../styles.css']
 })
 export class ResultsComponent implements OnInit {
   city: any = false;
@@ -63,7 +63,6 @@ export class ResultsComponent implements OnInit {
   navigateToVote() {
     this.router.navigateByUrl('/user');
   }
-
   sortByCity() {
     this.candidatesByCity = [];
     if (this.position == true) {

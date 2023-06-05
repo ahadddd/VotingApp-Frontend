@@ -14,7 +14,6 @@ import { VoterComponent } from './Main/Admin/Voter/Voter.component';
   ],
   imports: [
     BrowserModule,
-    CommonModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,

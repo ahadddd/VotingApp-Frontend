@@ -19,8 +19,6 @@ export class AdminComponent implements OnInit {
   navigateToVoters(){
     this.router.navigateByUrl('/admin/voters');
   }
-  navigateToCities(){
-    this.router.navigateByUrl('/admin/cities');
-  }
+  
 
 }

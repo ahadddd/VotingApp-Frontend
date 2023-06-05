@@ -5,7 +5,7 @@ form{
     border: 1px solid;
     display: flex;
     flex-wrap: wrap;
-    flex-direction: column;
+    flex-direction: row;
     margin-left: 10px;
     height: 250px;
 }
@@ -34,7 +34,8 @@ button#voteBtn{
     font-size: 20px;
     font-weight: 400;
     margin-left: 15px; margin-top: 10px;
-    width: 70px;
+    width: max-content;
+    padding: 15px;
     height: 40px;
     border: none; border-radius: 6px;
     color: white;
