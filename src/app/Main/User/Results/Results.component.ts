@@ -2,6 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import {  LinearScale, BarController, CategoryScale } from "chart.js";
+import {Chart} from 'chart.js/auto';
+
 
 @Component({
   selector: 'app-Results',
@@ -14,26 +17,15 @@ export class ResultsComponent implements OnInit {
   candidates: any = [];
   candidatesByCity: any = [];
   candidatesByPosition: any = [];
-  cities: any = ["Karachi",
-    "Lahore",
-    "Islamabad",
-    "Rawalpindi",
-    "Faisalabad",
-    "Multan",
-    "Hyderabad",
-    "Peshawar",
-    "Quetta",
-    "Gujranwala",
-    "Sialkot",
-    "Bahawalpur",
-    "Sargodha",
-    "Abbottabad",
-    "Gujrat",
-    "Sukkur",
-    "Jhelum",
-    "Mardan",
-    "Mirpur",
-    "Rahim Yar Khan"];
+  cities: any = ["New York",
+    "California",
+    "Ohio",
+    "Texas",
+    "Michigan",
+    "Washington",
+    "Arizona",
+    "Pennsylvania"
+  ];
   cityUrl: any = `https://localhost:7056/api/City`;
   baseUrl: any = `https://localhost:7056/api/Candidate`;
   cityForm!: FormGroup;
@@ -101,6 +93,38 @@ export class ResultsComponent implements OnInit {
         console.log(this.candidatesByCity);
       }
     }
+  }
+
+  createChart(): void {
+    const canvas: HTMLCanvasElement = document.getElementById('chart') as HTMLCanvasElement;
+    const ctx: CanvasRenderingContext2D | null = canvas.getContext('2d');
+
+    if (ctx) {
+      Chart.register(LinearScale, BarController, CategoryScale);
+      
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: this.candidates.filter((item: any) => item.name), 
+          datasets: [{
+            label: 'Data',
+            data: this.candidates.filter((item: any) => item.votes.length), 
+            backgroundColor: 'rgba(75, 192, 192, 0.6)', 
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    }
+
   }
 
 
