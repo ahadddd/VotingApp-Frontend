@@ -13,7 +13,6 @@ export class UserComponent implements OnInit {
 
   baseUrlCandidates = `https://localhost:7056/api/Candidate`;
   baseUrlVoters = `https://localhost:7056/api/Voter`;
-  selectedCandidate: any;
   selectedVoter: any;
   candidates: any = [];
   voters: any = [];
@@ -114,27 +113,31 @@ export class UserComponent implements OnInit {
       console.log(vote);
       this.voteForm.reset();
 
-      //create vote
-      // this.http.post(voteUrl, vote).subscribe({
-      //   next: (res) => console.log(res),
-      //   error: (err) => console.log(err)
-      // });
+      // create vote
+      this.http.post(voteUrl, vote).subscribe({
+        next: (res) => console.log(res),
+        error: (err) => console.log(err)
+      });
 
-      //link to candidate
-      // setTimeout(() => {
-      //   this.http.put(candidateUrl, vote).subscribe({
-      //     next: (res) => console.log(res),
-      //     error: (err) => console.log(err)
-      //   });
-      // }, 2000);
+      // link to candidate
+      setTimeout(() => {
+        this.http.put(candidateUrl, vote).subscribe({
+          next: (res) => console.log(res),
+          error: (err) => console.log(err)
+        });
+      }, 2000);
 
-      //link to voter
-      // setTimeout(() => {
-      //   this.http.put(voterUrl, vote).subscribe({
-      //     next: (res) => console.log(res),
-      //     error: (err) => console.log(err)
-      //   });
-      // }, 2000);
+      // link to voter
+      setTimeout(() => {
+        this.http.put(voterUrl, vote).subscribe({
+          next: (res) => console.log(res),
+          error: (err) => console.log(err)
+        });
+      }, 2000);
+
+      this.selectedVoter = null;
+      this.selectedCity = null;
+      
     }
 
 
