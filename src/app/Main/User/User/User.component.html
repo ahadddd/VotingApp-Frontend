@@ -26,7 +26,7 @@
     <button (click)="selectVoter()" id="voteBtn">Select Candidate</button>
 
   
-    <form *ngIf="selectedVoter !== undefined" (ngSubmit)="castVote()" [formGroup]="voteForm">
+    <form *ngIf="selectedCity !== undefined" (ngSubmit)="castVote()" [formGroup]="voteForm">
 
       <label for="candidate">Select Candidate</label>
       <select formControlName="candidate" id="candidate">
