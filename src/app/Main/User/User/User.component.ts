@@ -19,6 +19,8 @@ export class UserComponent implements OnInit {
   voters: any = [];
   selectedCity: any;
   filterCandidates: any = [];
+  senators: any = []
+  congressmen: any = [];
   voteForm!: FormGroup;
 
   constructor(private router: Router, private http: HttpClient) { }
@@ -43,8 +45,8 @@ export class UserComponent implements OnInit {
     console.log(this.voters);
 
     this.voteForm = new FormGroup({
-      candidate: new FormControl('', Validators.required),
-      voter: new FormControl('', Validators.required)
+      senator: new FormControl('', Validators.required),
+      congressman: new FormControl('', Validators.required),
     });
 
   }
@@ -60,59 +62,82 @@ export class UserComponent implements OnInit {
   }
 
   selectVoter() {
-    let vote: any;
-    let voteUrl = `https://localhost:7056/vote/Vote`;
-    let voterUrl = `https://localhost:7056/api/Voter/voter/castVote` //append voterName/castVote
-    let candidateUrl = `https://localhost:7056/api/Candidate/candidate/castVote` //append candidateName/castVote
-    if (this.selectedCity == undefined) {
+    //append candidateName/castVote
+    if (this.selectedVoter == undefined) {
       alert('Invalid data provided.');
     }
     else {
-      console.log(this.selectedCity);
+      this.voters.forEach((item: any) => {
+        if (item.id == this.selectedVoter) {
+          this.selectedCity = item.city;
+        }
+      });
+
+      //CHECKS 
+      this.voters.forEach((item: any) => {
+        if (item.id == this.selectedVoter) {
+          console.log("Selected Voter: ", item.name);
+          ;
+        }
+      });
+      console.log("Selected City: ", this.selectedCity);
       this.filterCandidates = this.candidates.filter((item: any) => item.city == this.selectedCity);
-      console.log(this.filterCandidates);
-      
-      // let ctrl = this.voteForm.controls;
-      // vote = {
-      //   casted: true,
-      //   voter: ctrl['voter'].getRawValue(),
-      //   candidate: ctrl['candidate'].getRawValue()
-      // };
-      
-      // this.voteForm.reset();
+      console.log(`Candidates from ${this.selectedCity} `, this.filterCandidates);
+      this.senators = this.filterCandidates.filter((item: any) => item.position == 'Senator');
+      console.log(`Senators from ${this.selectedCity}`, this.senators);
+      this.congressmen = this.filterCandidates.filter((item: any) => item.position == 'Congressman');
+      console.log(`Congressmen from ${this.selectedCity}`, this.congressmen);
+
+      //CHECKS
     }
 
-    //check voter
-    
-
-    //check candidate
-    
-
-    //create vote
-    // this.http.post(voteUrl, vote).subscribe({
-    //   next: (res) => console.log(res),
-    //   error: (err) => console.log(err)
-    // });
-
-    //link to candidate
-    // setTimeout(() => {
-    //   this.http.put(candidateUrl, vote).subscribe({
-    //     next: (res) => console.log(res),
-    //     error: (err) => console.log(err)
-    //   });
-    // }, 2000);
-
-    //link to voter
-    // setTimeout(() => {
-    //   this.http.put(voterUrl, vote).subscribe({
-    //     next: (res) => console.log(res),
-    //     error: (err) => console.log(err)
-    //   });
-    // }, 2000);
   }
 
 
-  castVote(){
+  castVote() {
+    let vote: any;
+    let voteUrl = `https://localhost:7056/vote/Vote`;
+    let voterUrl = `https://localhost:7056/api/Voter/voter/castVote` //append voterName/castVote
+    let candidateUrl = `https://localhost:7056/api/Candidate/candidate/castVote`
+
+    if (this.voteForm.invalid) {
+      alert('Invalid vote casted.')
+    }
+    else {
+      let ctrl = this.voteForm.controls;
+      vote = {
+        casted: true,
+        voter: this.selectedVoter,
+        senator: ctrl['senator'].getRawValue(),
+        congressman: ctrl['congressman'].getRawValue(),
+      };
+      console.log(vote);
+      this.voteForm.reset();
+
+      //create vote
+      // this.http.post(voteUrl, vote).subscribe({
+      //   next: (res) => console.log(res),
+      //   error: (err) => console.log(err)
+      // });
+
+      //link to candidate
+      // setTimeout(() => {
+      //   this.http.put(candidateUrl, vote).subscribe({
+      //     next: (res) => console.log(res),
+      //     error: (err) => console.log(err)
+      //   });
+      // }, 2000);
+
+      //link to voter
+      // setTimeout(() => {
+      //   this.http.put(voterUrl, vote).subscribe({
+      //     next: (res) => console.log(res),
+      //     error: (err) => console.log(err)
+      //   });
+      // }, 2000);
+    }
+
+
 
   }
 

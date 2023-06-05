@@ -17,20 +17,26 @@
   <div class="votingSection">
     
     <label for="candidate">Select Voter</label>
-    <select [(ngModel)]="selectedCity" id="candidate">
-      <option *ngFor="let item of voters; let c = index" [value]="item.city">
+    <select [(ngModel)]="selectedVoter" id="candidate">
+      <option *ngFor="let item of voters; let index = index" [value]="item.id">
         {{ item.name }}
       </option>
     </select>
-
     <button (click)="selectVoter()" id="voteBtn">Select Candidate</button>
 
   
-    <form *ngIf="selectedCity !== undefined" (ngSubmit)="castVote()" [formGroup]="voteForm">
+    <form (ngSubmit)="castVote()" *ngIf="selectedCity !== undefined" (ngSubmit)="castVote()" [formGroup]="voteForm">
 
-      <label for="candidate">Select Candidate</label>
-      <select formControlName="candidate" id="candidate">
-        <option *ngFor="let item of filterCandidates; let c = index" [value]="item.id">
+      <label for="senator">Select Senator to vote for:</label>
+      <select formControlName="senator" id="senator">
+        <option *ngFor="let item of senators; let c = index" [value]="item.id">
+          {{ item.name }}
+        </option>
+      </select>
+
+      <label for="congressman">Select Congressman to vote for:</label>
+      <select formControlName="congressman" id="congressman">
+        <option *ngFor="let item of congressmen; let c = index" [value]="item.id">
           {{ item.name }}
         </option>
       </select>
