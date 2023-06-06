@@ -11,6 +11,68 @@
 </div>
 
 <div class="container">
+  <div class="searchBar">
+    <label for="city">Select City</label>
+    <select [(ngModel)]="selectedCity" id="city">
+      <option *ngFor="let item of cities" [value]="item">{{ item }}</option>
+    </select>
+    <button id="srcBtn" (click)="createChart()">Get Results</button>
+  </div>
+
+  <div class="highlights">
+    <label style="color: rgba(75, 192, 192)" for="">Total Voters</label>
+    <div class="summary">
+      <p *ngIf="selectedVoters.length !== 0">{{ selectedVoters.length }}</p>
+    </div>
+
+    <label style="color: rgba(75, 192, 192)" for="">Total Votes Cast</label>
+    <div class="summary">
+      <p *ngIf="voted !== undefined">{{ voted.length }}</p>
+    </div>
+
+    <label style="color: rgba(75, 192, 192)" for="">Voter Turnaround</label>
+    <div class="summary">
+      <p *ngIf="nonVoted !== undefined">
+        {{ (voted.length / selectedVoters.length) * 100 | number : "1.0-0" }}%
+      </p>
+    </div>
+  </div>
+
+  <div class="leaders">
+    <div class="leader">
+      <p style="font-weight: 300">
+        Leading Congressman:
+        <span
+          *ngIf="leadingCongressman !== undefined"
+          style="font-weight: 500"
+          >{{ leadingCongressman.name }}</span
+        >
+      </p>
+    </div>
+
+    <div class="leader">
+      <p style="font-weight: 300">
+        Leading Senator:
+        <span 
+        *ngIf="leadingSenator !== undefined"
+         style="font-weight: 500">
+         {{leadingSenator.name}}
+        </span>
+      </p>
+    </div>
+  </div>
+
+  <div class="chartContainer">
+    <div class="congressChart">
+      <canvas id="chart1"></canvas>
+    </div>
+    <div class="senatorChart">
+      <canvas id="chart2"></canvas>
+    </div>
+  </div>
+
+  <div class="countryStats"></div>
+
   <!-- <div class="controls">
     <form (ngSubmit)="sortByCity()" [formGroup]="cityForm">
       <label for="">Search by City</label>
@@ -74,15 +136,5 @@
       </tbody>
     </table>
   </div> -->
-<button (click)="createChart()">Create chart</button>
-<canvas id="chart"></canvas>
-
-
-
-
-
-
-
-
-
+  <!-- <button (click)="createChart()">Create chart</button> -->
 </div>
