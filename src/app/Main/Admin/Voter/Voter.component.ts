@@ -16,16 +16,15 @@ export class VoterComponent implements OnInit {
   editModal: boolean = false;
   createForm!: FormGroup;
   globalHolder: any;
-  cities: any = ["Karachi",
-    "Lahore",
-    "Islamabad",
-    "Rawalpindi",
-    "Faisalabad",
-    "Multan",
-    "Hyderabad",
-    "Peshawar",
-    "Quetta",
-  ];
+  cities: any = ["New York",
+  "California",
+  "Ohio",
+  "Texas",
+  "Michigan",
+  "Washington",
+  "Arizona",
+  "Pennsylvania"
+];
   constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {

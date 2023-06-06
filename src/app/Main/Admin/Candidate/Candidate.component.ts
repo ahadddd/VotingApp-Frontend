@@ -16,26 +16,15 @@ export class CandidateComponent implements OnInit {
   createForm !: FormGroup;
   candidates: any[] = [];
   globalHolder: any;
-  cities: any = ["Karachi",
-    "Lahore",
-    "Islamabad",
-    "Rawalpindi",
-    "Faisalabad",
-    "Multan",
-    "Hyderabad",
-    "Peshawar",
-    "Quetta",
-    "Gujranwala",
-    "Sialkot",
-    "Bahawalpur",
-    "Sargodha",
-    "Abbottabad",
-    "Gujrat",
-    "Sukkur",
-    "Jhelum",
-    "Mardan",
-    "Mirpur",
-    "Rahim Yar Khan"];
+  cities: any = ["New York",
+    "California",
+    "Ohio",
+    "Texas",
+    "Michigan",
+    "Washington",
+    "Arizona",
+    "Pennsylvania"
+  ];
   constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
@@ -124,10 +113,7 @@ export class CandidateComponent implements OnInit {
 
           "name": ctrl['name'].getRawValue(),
           "position": ctrl['position'].getRawValue(),
-          "city": {
-            "name":
-              ctrl['city'].getRawValue(),
-          }
+          "city": ctrl['city'].getRawValue(),
         }
         let req = this.http.put(this.baseUrl + `Candidate/${this.candidates[this.globalHolder]?.name}`, c1);
         req.subscribe({

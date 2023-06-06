@@ -12,7 +12,14 @@
 
 <div class="container">
   <div class="mainContent">
-    <table>
+
+    <label for="city">Filter by City: </label>
+    <select [(ngModel)]="selectedCity" >
+      <option *ngFor="let item of cities" id="city" [value]="item">{{item}}</option>
+    </select>
+    <button (click)="filter()">Filter</button>
+
+    <table *ngIf="candidatesByCity.length == 0">
       <thead class="tHeader">
         <tr>
           <td class="head">Candidate</td>
@@ -22,6 +29,22 @@
 
       <tbody>
         <tr *ngFor="let item of candidates">
+          <td class="data">{{ item.name }}</td>
+          <td class="data">{{ item.position }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table *ngIf="candidatesByCity.length > 1">
+      <thead class="tHeader">
+        <tr>
+          <td class="head">Candidate</td>
+          <td class="head">Position</td>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let item of candidatesByCity">
           <td class="data">{{ item.name }}</td>
           <td class="data">{{ item.position }}</td>
         </tr>

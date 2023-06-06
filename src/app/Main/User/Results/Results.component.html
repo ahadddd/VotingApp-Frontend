@@ -53,10 +53,8 @@
     <div class="leader">
       <p style="font-weight: 300">
         Leading Senator:
-        <span 
-        *ngIf="leadingSenator !== undefined"
-         style="font-weight: 500">
-         {{leadingSenator.name}}
+        <span *ngIf="leadingSenator !== undefined" style="font-weight: 500">
+          {{ leadingSenator.name }}
         </span>
       </p>
     </div>
@@ -71,7 +69,15 @@
     </div>
   </div>
 
-  <div class="countryStats"></div>
+  <div class="countryStats">
+    <p style="color: rgba(75, 192, 192); font-size: 25px;">Country Wide Stats</p>
+    <div class="stat">
+      <p>Secretary of State: <span *ngIf="secOfState!==undefined" style="font-weight: 500;">{{secOfState.name}}</span> </p>
+    </div>
+    <div class="stat">
+      <p>President: <span *ngIf="president!==undefined" style="font-weight: 500;">{{president.name}}</span> </p>
+    </div>
+  </div>
 
   <!-- <div class="controls">
     <form (ngSubmit)="sortByCity()" [formGroup]="cityForm">

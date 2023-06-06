@@ -16,13 +16,16 @@
 
   <div class="votingSection">
     
-    <label for="candidate">Select Voter</label>
-    <select [(ngModel)]="selectedVoter" id="candidate">
-      <option *ngFor="let item of voters; let index = index" [value]="item.id">
-        {{ item.name }}
-      </option>
-    </select>
-    <button (click)="selectVoter()" id="voteBtn">Select Candidate</button>
+    <div class="searchSection">
+      <label for="candidate">Select Voter</label>
+      <select [(ngModel)]="selectedVoter" id="candidate">
+        <option *ngFor="let item of voters; let index = index" [value]="item.id">
+          {{ item.name }}
+        </option>
+      </select>
+      <button (click)="selectVoter()" id="voteBtn">Select Candidate</button>
+    </div>
+    
 
   
     <form (ngSubmit)="castVote()" *ngIf="selectedCity !== undefined" (ngSubmit)="castVote()" [formGroup]="voteForm">
@@ -41,7 +44,7 @@
         </option>
       </select>
 
-      <button type="submit" id="voteBtn">Vote</button>
+      <button style="width: 70px" type="submit" id="voteBtn">Vote</button>
     </form>
 
 

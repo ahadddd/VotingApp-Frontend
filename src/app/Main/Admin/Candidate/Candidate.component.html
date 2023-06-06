@@ -3,7 +3,6 @@
     <a routerLink="">Voting App</a>
   </div>
 
-
   <div class="nav-items">
     <a (click)="navigateToCandidates()">Candidates</a>
     <a (click)="navigateToVoters()">Voters Portal</a>
@@ -12,68 +11,114 @@
 </div>
 
 <div class="container">
-  <div class="buttons">
-    <button style="height: 50px" (click)="getCandidates()">
-      Get All Candidates
-    </button>
-    <button style="height: 50px" (click)="addCandidate()">
-      Create Candidate
-    </button>
-  </div>
-  
-
   <table>
     <thead>
       <tr>
-        <td>Id</td>
-        <td>Name</td>
-        <td>Position</td>
-        <td>City</td>
-        <td>Actions</td>
+        <td class="headTD">Id</td>
+        <td class="headTD">Name</td>
+        <td class="headTD">Position</td>
+        <td class="headTD">City</td>
+        <td class="headTD">Actions</td>
       </tr>
     </thead>
 
     <tbody>
       <tr *ngFor="let item of candidates; let i = index">
-        <td>{{item?.id}}</td>
-        <td>{{item?.name}}</td>
-        <td>{{item?.position}}</td>
-        <td>{{item?.city}}</td>
-        <td><button (click)="editCandidate(i)" >Edit</button> <button (click)="deleteCandidate(i)">Delete</button></td>
+        <td class="dataTd">{{ item?.id }}</td>
+        <td class="dataTd">{{ item?.name }}</td>
+        <td class="dataTd">{{ item?.position }}</td>
+        <td class="dataTd">{{ item?.city }}</td>
+        <td class="ctrlTd">
+          <button
+            class="actionBtn"
+            (click)="editCandidate(i)"
+            style="
+              background-color: rgb(255, 255, 60);
+              color: black;
+              margin-right: 10px;
+            "
+          >
+            Edit
+          </button>
+          <button
+            class="actionBtn"
+            (click)="deleteCandidate(i)"
+            style="background-color: rgb(255, 103, 103); margin-left: 10px"
+          >
+            Delete
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
+
+  <div class="buttons">
+    <p>Control Panel</p>
+    <button
+      class="ctrlBtn"
+      style="height: 50px; width: 150px; color: black; margin-bottom: 20px"
+      (click)="getCandidates()"
+    >
+      Get All Candidates
+    </button>
+    <button
+      class="ctrlBtn"
+      style="height: 50px; width: 150px; color: black; margin-bottom: 20px"
+      (click)="addCandidate()"
+    >
+      Create Candidate
+    </button>
+  </div>
 </div>
 
 <div *ngIf="createModal" class="createCandidate">
   <form [formGroup]="createForm" (ngSubmit)="addCandidate()">
     <label for="name">Name</label>
-    <input type="text" placeholder="Enter Name: " id="name" formControlName="name" />
+    <input
+      type="text"
+      placeholder="Enter Name: "
+      id="name"
+      formControlName="name"
+    />
     <label for="city">City</label>
     <select formControlName="city" id="city">
       <option *ngFor="let item of cities" [ngValue]="item">
-        {{item}}
+        {{ item }}
       </option>
     </select>
     <label for="position">Position</label>
-    <input type="text" placeholder="Enter Position: " id="position" formControlName="position"/>
+    <input
+      type="text"
+      placeholder="Enter Position: "
+      id="position"
+      formControlName="position"
+    />
     <button type="submit" id="addBtn">Add Candidate</button>
   </form>
 </div>
 
-
 <div *ngIf="editModal" class="createCandidate">
   <form [formGroup]="createForm" (ngSubmit)="editCandidate()">
     <label for="name">Name</label>
-    <input type="text" placeholder="Enter Name: " id="name" formControlName="name" />
+    <input
+      type="text"
+      placeholder="Enter Name: "
+      id="name"
+      formControlName="name"
+    />
     <label for="city">City</label>
     <select formControlName="city" id="city">
       <option *ngFor="let item of cities" [value]="item">
-        {{item}}
+        {{ item }}
       </option>
     </select>
     <label for="position">Position</label>
-    <input type="text" placeholder="Enter Position: " id="position" formControlName="position"/>
+    <input
+      type="text"
+      placeholder="Enter Position: "
+      id="position"
+      formControlName="position"
+    />
     <button type="submit" id="addBtn">Edit Candidate</button>
   </form>
 </div>

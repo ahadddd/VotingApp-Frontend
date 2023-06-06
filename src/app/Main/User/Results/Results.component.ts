@@ -6,6 +6,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LinearScale, BarController, CategoryScale } from "chart.js";
 import { Chart } from 'chart.js/auto';
+import { plugins } from 'chart.js';
 
 
 @Component({
@@ -42,6 +43,8 @@ export class ResultsComponent implements OnInit {
   nonVoted: any;
   leadingCongressman: any = 0;
   leadingSenator: any = 0;
+  secOfState: any;
+  president: any;
   constructor(private router: Router, private http: HttpClient) { }
 
 
@@ -122,19 +125,44 @@ export class ResultsComponent implements OnInit {
       this.selectedVoters = [];
       this.voted = [];
       this.nonVoted = [];
+      
+      let congressmanVotes = 0;
       this.candidates.filter((item: any) => item.position == "Congressman" && item.city == this.selectedCity).forEach((item: any) => {
-        if (item.votes.length > this.leadingSenator) {
+        if (item.votes.length > congressmanVotes) {
+          congressmanVotes = item.votes.length;
           this.leadingCongressman = item;
         }
       });
       console.log(this.leadingCongressman);
 
+      let senatorVotes = 0;
       this.candidates.filter((item: any) => item.position == "Senator" && item.city == this.selectedCity).forEach((item: any) => {
-        if (item.votes.length > this.leadingSenator) {
+        if (item.votes.length > senatorVotes) {
+          senatorVotes = item.votes.length;
           this.leadingSenator = item;
         }
       });
       console.log(this.leadingSenator);
+
+      let secOfStateVotes = 0;
+      this.candidates.filter((item: any) => item.position=="Congressman").forEach((item: any) => {
+        if(item.votes.length > secOfStateVotes){
+          secOfStateVotes = item.votes.length;
+          this.secOfState = item;
+        }
+      });
+      console.log("Leading SoS: ",this.secOfState);
+      
+
+      let presidentVotes = 0;
+      this.candidates.filter((item: any) => item.position=="Senator").forEach((item: any) => {
+        if(item.votes.length > presidentVotes){
+          presidentVotes = item.votes.length;
+          this.president = item;
+        }
+      });
+      console.log("Leading president: ",this.president);
+      
 
 
       this.selectedVoters = this.voters.filter((item: any) => item.city == this.selectedCity);
@@ -142,12 +170,7 @@ export class ResultsComponent implements OnInit {
       console.log("People who voted: ", this.voted);
       this.nonVoted = this.selectedVoters.filter((item: any) => item.voteCasted == null || undefined);
       console.log("People who didnt vote ", this.nonVoted);
-      this.candidates.forEach((item: any) => {
-        if (item.city == this.selectedCity) {
-          console.log(item);
-
-        }
-      })
+      
 
 
       const canvas: HTMLCanvasElement = document.getElementById('chart1') as HTMLCanvasElement;
@@ -191,7 +214,6 @@ export class ResultsComponent implements OnInit {
               }
             },
           },
-          backgroundColor: 'rgb(72 70 70)',
         }
       });
 
@@ -210,6 +232,12 @@ export class ResultsComponent implements OnInit {
           }]
         },
         options: {
+          plugins: {
+            colors: {
+              
+            }
+          },
+          
           responsive: true,
           scales: {
             y: {
@@ -219,7 +247,7 @@ export class ResultsComponent implements OnInit {
               }
             }
           }
-        }
+        },
       });
     }
 

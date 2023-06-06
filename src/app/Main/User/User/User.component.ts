@@ -137,7 +137,6 @@ export class UserComponent implements OnInit {
 
       this.selectedVoter = null;
       this.selectedCity = null;
-      
     }
 
 

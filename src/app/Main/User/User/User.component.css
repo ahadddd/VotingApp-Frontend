@@ -1,43 +1,53 @@
-form{
+form {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 15px;
     width: 30%;
     border: 1px solid;
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row;
+    justify-content: space-evenly;
+    flex-direction: column;
     margin-left: 10px;
-    height: 250px;
+    height: 300px;
 }
 
-
-select, option{
+div.searchSection {
     width: 70%;
-    margin-bottom: 10px;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    border: 1px solid;
+}
+
+select,
+option {
+    width: 70%;
     height: 35px;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 15px;
     font-weight: 300;
     margin-left: 15px;
-    padding: 5px; margin: 0.5px solid;
+    padding: 5px;
 }
 
-label{
+label {
     margin-left: 10px;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 23px;
     font-weight: 400;
 }
 
-button#voteBtn{
+button#voteBtn {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 20px;
     font-weight: 400;
-    margin-left: 15px; margin-top: 10px;
+    margin-left: 15px;
     width: max-content;
-    padding: 15px;
-    height: 40px;
-    border: none; border-radius: 6px;
+    height: 35px;
+    border: none;
+    border-radius: 6px;
     color: white;
     background-color: rgb(57, 104, 57);
 }
